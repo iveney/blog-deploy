@@ -1,0 +1,943 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.21.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>A Comparison of Least Square, L2-regularization and L1-regularization - Ivan Xiao</title>
+<meta name="description" content="">
+
+
+  <meta name="author" content="Ivan Xiao">
+  
+  <meta property="article:author" content="Ivan Xiao">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="Ivan Xiao">
+<meta property="og:title" content="A Comparison of Least Square, L2-regularization and L1-regularization">
+<meta property="og:url" content="https://www.ivanxiao.com/2014/05/15/a-comparison-of-least-square-l2-regularization-and-l1-regularization">
+
+
+  <meta property="og:description" content="">
+
+
+
+  <meta property="og:image" content="https://res.cloudinary.com/maomao/image/upload/v1491291930/blog/2014-05-14-a-comparison-of-least-square-l2-regularization-and-l1-regularization/coef.png">
+
+
+
+  <meta name="twitter:site" content="@ivanzxiao">
+  <meta name="twitter:title" content="A Comparison of Least Square, L2-regularization and L1-regularization">
+  <meta name="twitter:description" content="">
+  <meta name="twitter:url" content="https://www.ivanxiao.com/2014/05/15/a-comparison-of-least-square-l2-regularization-and-l1-regularization">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+      <meta name="twitter:image" content="https://res.cloudinary.com/maomao/image/upload/v1491291930/blog/2014-05-14-a-comparison-of-least-square-l2-regularization-and-l1-regularization/coef.png">
+    
+  
+
+  
+    <meta name="twitter:creator" content="@ivanzxiao">
+  
+
+
+
+  <meta property="article:published_time" content="2014-05-15T02:32:38+00:00">
+
+
+
+
+
+
+<link rel="canonical" href="https://www.ivanxiao.com/2014/05/15/a-comparison-of-least-square-l2-regularization-and-l1-regularization">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": null,
+      "url": "https://www.ivanxiao.com/",
+      "sameAs": ["https://twitter.com/ivanzxiao","https://www.linkedin.com/in/ivanzxiao"]
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Ivan Xiao Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use http://realfavicongenerator.net/ -->
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+          <a class="site-logo" href="/"><img src="/images/logo.png" alt=""></a>
+        
+        <a class="site-title" href="/">
+          Ivan Xiao
+          <span class="site-subtitle">Tech, Money and Enjoying Life.</span>
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/">Home</a>
+            </li><li class="masthead__menu-item">
+              <a href="/about/">About</a>
+            </li><li class="masthead__menu-item">
+              <a href="/archive/">Archive</a>
+            </li><li class="masthead__menu-item">
+              <a href="/categories/">Categories</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/">Tags</a>
+            </li><li class="masthead__menu-item">
+              <a href="/gallery/">Gallery</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="/images/ivan-memoji.jpg" alt="Ivan Xiao" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Ivan Xiao</h3>
+    
+    
+      <div class="author__bio" itemprop="description">
+        <p>Engineer. Father. Cat Lover. Guitarist. Ballroom Dancer. Woodworker.</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+
+      
+        
+          
+            <li><a href="https://github.com/iveney" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+        <li>
+          <a href="https://twitter.com/ivanzxiao" itemprop="sameAs" rel="nofollow noopener noreferrer">
+            <i class="fab fa-fw fa-twitter-square" aria-hidden="true"></i><span class="label">Twitter</span>
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="A Comparison of Least Square, L2-regularization and L1-regularization">
+    <meta itemprop="description" content="">
+    <meta itemprop="datePublished" content="2014-05-15T02:32:38+00:00">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">A Comparison of Least Square, L2-regularization and L1-regularization
+</h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2014-05-15T02:32:38+00:00">May 15, 2014</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          3 minute read
+        
+      </span>
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right ">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On this page</h4></header>
+              <ul class="toc__menu">
+  <li><a href="#problem-setting">Problem Setting</a>
+    <ul>
+      <li><a href="#an-example">An Example</a></li>
+      <li><a href="#probing-further">Probing Further</a></li>
+    </ul>
+  </li>
+</ul>
+
+            </nav>
+          </aside>
+        
+        <p><img src="https://res.cloudinary.com/maomao/image/upload/v1491291930/blog/2014-05-14-a-comparison-of-least-square-l2-regularization-and-l1-regularization/coef.png" alt="Recovered Coefficients by Different Methods" /></p>
+
+<h1 id="problem-setting">Problem Setting</h1>
+
+<p>Ordinary Least Square (OLS), L2-regularization and L1-regularization are
+all techniques of finding solutions in a linear system. However,
+they serve for different purposes. Recently, L1-regularization gains
+much attention due to its ability in finding sparse solutions.
+This post demonstrates this by comparing OLS, L2 and L1 regularization.</p>
+
+<!-- more -->
+
+<p>Consider the following linear system:</p>
+
+\[Ax = y\]
+
+<p>where \(A \in \reals^{m \times n}\), \(m\) is the number of rows (observations) and
+\(n\) is the number of columns (variable dimension), \(x\) is the variable
+coefficients and \(y\) is the response. There are three cases to consider:</p>
+
+<ol>
+  <li>\(m=n\). This is the common-seen case. If \(A\) is not degenerate, the solution
+is unique.</li>
+  <li>\(m&gt;n\). This is called <em>over-determined linear system</em>. There is usually <em>no</em>
+solutions, but an <em>approximation</em> can be easily found by minimizing
+the <em>residue cost</em> \(\norm{Ax-y}^2_2\) using least square methods, and it has
+a nice closed-form solution \(x_{ls}=(A^T A)^{-1} A^T y\). In L2-regularization,
+we add a penalize term to minimize the 2-norm of the coefficients. Thus, the
+objective becomes:
+\(\min_x \norm{Ax-y}^2_2 + \alpha \norm{x}_2\)
+where \(\alpha\) is a weight to decide the importance of the regularization.</li>
+  <li>\(m&lt;n\). This is called <em>under-determined linear system</em>. There is usually
+no solution or infinite solutions. This is where it get interesting:
+when we have some prior knowledge in the solution structure, such as
+sparsity, we can have a ‘metric’ to find a better solution among a whole bunch.
+The objective is thus:
+\(\min_x \norm{Ax-y}^2_2 + \alpha \norm{x}_1\)
+The optimization technique for the above problem is called <a href="http://www-stat.stanford.edu/~tibs/lasso.html">lasso</a>, and there
+is an advanced version called <a href="http://en.wikipedia.org/wiki/Elastic_net_regularization">elastic net</a>, which <a href="http://scikit-learn.org/stable/modules/linear_model.html#elastic-net">combines the L2 and L1
+regularization together</a>, hoping to get the advantages of both: L1 regularization
+finds sparse solution but introduces a large Mean Square Error (MSE) error,
+while L2 is better at minimizing MSE.</li>
+</ol>
+
+<h2 id="an-example">An Example</h2>
+
+<p>In the following, we show their performances by solving a simple case.</p>
+
+<figure class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="c1">% regression_ex.m</span>
+<span class="c1">% Compare Ordinary Least square (no regularization), L2-reguarlized (Ridge),</span>
+<span class="c1">% L1-regualarized (Lasso) regression in finding the sparse coefficient</span>
+<span class="c1">% in a underdetermined linear system</span>
+
+<span class="nb">rng</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>  <span class="c1">% for reproducibility</span>
+<span class="n">m</span> <span class="o">=</span> <span class="mi">50</span><span class="p">;</span>  <span class="c1">% num samples</span>
+<span class="n">n</span> <span class="o">=</span> <span class="mi">200</span><span class="p">;</span> <span class="c1">% num variables, note that n &gt; m</span>
+
+<span class="n">A</span> <span class="o">=</span> <span class="nb">rand</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">n</span><span class="p">);</span>
+<span class="n">x</span> <span class="o">=</span> <span class="nb">zeros</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+<span class="n">nz</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span> <span class="c1">% 10 non-zeros variables (sparse)</span>
+<span class="n">nz_idx</span> <span class="o">=</span> <span class="nb">randperm</span><span class="p">(</span><span class="n">n</span><span class="p">);</span>
+<span class="n">x</span><span class="p">(</span><span class="n">nz_idx</span><span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="n">nz</span><span class="p">))</span> <span class="o">=</span> <span class="mi">3</span> <span class="o">*</span> <span class="nb">rand</span><span class="p">(</span><span class="n">nz</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">A</span><span class="o">*</span><span class="n">x</span><span class="p">;</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">y</span> <span class="o">+</span> <span class="mf">0.05</span> <span class="o">*</span> <span class="nb">rand</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span> <span class="c1">% add some noise</span>
+
+<span class="c1">% plot original x</span>
+<span class="nb">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+<span class="nb">bar</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="nb">axis</span> <span class="n">tight</span><span class="p">;</span>
+<span class="nb">title</span><span class="p">(</span><span class="s1">'Original coefficients'</span><span class="p">);</span>
+
+<span class="c1">% OLS</span>
+<span class="n">x_ols</span> <span class="o">=</span> <span class="n">A</span> <span class="p">\</span> <span class="n">y</span><span class="p">;</span>
+<span class="nb">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+<span class="nb">bar</span><span class="p">(</span><span class="n">x_ols</span><span class="p">),</span> <span class="nb">axis</span> <span class="n">tight</span><span class="p">;</span>
+<span class="nb">title</span><span class="p">(</span><span class="s1">'Ordinary Least Square'</span><span class="p">);</span>
+<span class="n">y_ols</span> <span class="o">=</span> <span class="n">A</span> <span class="o">*</span> <span class="n">x_ols</span><span class="p">;</span>
+
+<span class="c1">% L2 (Ridge)</span>
+<span class="n">x_l2</span> <span class="o">=</span> <span class="n">ridge</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="mf">1e-5</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>  <span class="c1">% last parameter = 00 to generate intercept term</span>
+<span class="n">b_l2</span> <span class="o">=</span> <span class="n">x_l2</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="n">x_l2</span> <span class="o">=</span> <span class="n">x_l2</span><span class="p">(</span><span class="mi">2</span><span class="p">:</span><span class="k">end</span><span class="p">);</span>
+<span class="nb">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>
+<span class="nb">bar</span><span class="p">(</span><span class="n">x_l2</span><span class="p">),</span> <span class="nb">axis</span> <span class="n">tight</span><span class="p">;</span>
+<span class="nb">title</span><span class="p">(</span><span class="s1">'L2 Regularization'</span><span class="p">);</span>
+<span class="n">y_l2</span> <span class="o">=</span> <span class="n">A</span> <span class="o">*</span> <span class="n">x_l2</span> <span class="o">+</span> <span class="n">b_l2</span><span class="p">;</span>
+
+<span class="c1">% L1 (Lasso)</span>
+<span class="p">[</span><span class="n">x_l1</span><span class="p">,</span> <span class="n">fitinfo</span><span class="p">]</span> <span class="o">=</span> <span class="n">lasso</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s1">'Lambda'</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">);</span>
+<span class="n">b_l1</span> <span class="o">=</span> <span class="n">fitinfo</span><span class="o">.</span><span class="n">Intercept</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="n">y_l1</span> <span class="o">=</span> <span class="n">A</span> <span class="o">*</span> <span class="n">x_l1</span> <span class="o">+</span> <span class="n">b_l1</span><span class="p">;</span>
+<span class="nb">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">);</span>
+<span class="nb">bar</span><span class="p">(</span><span class="n">x_l1</span><span class="p">),</span> <span class="nb">axis</span> <span class="n">tight</span><span class="p">;</span>
+<span class="nb">title</span><span class="p">(</span><span class="s1">'L1 Regularization'</span><span class="p">);</span>
+
+<span class="c1">% L1 (Elastic Net)</span>
+<span class="p">[</span><span class="n">x_en</span><span class="p">,</span> <span class="n">fitinfo_en</span><span class="p">]</span> <span class="o">=</span> <span class="n">lasso</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s1">'Lambda'</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="s1">'Alpha'</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">);</span>
+<span class="n">b_en</span> <span class="o">=</span> <span class="n">fitinfo_en</span><span class="o">.</span><span class="n">Intercept</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="n">y_en</span> <span class="o">=</span> <span class="n">A</span> <span class="o">*</span> <span class="n">x_en</span> <span class="o">+</span> <span class="n">b_en</span><span class="p">;</span>
+
+<span class="n">MSE_y</span> <span class="o">=</span> <span class="p">[</span><span class="n">mse</span><span class="p">(</span><span class="n">y_ols</span><span class="o">-</span><span class="n">y</span><span class="p">),</span> <span class="n">mse</span><span class="p">(</span><span class="n">y_l2</span><span class="o">-</span><span class="n">y</span><span class="p">),</span> <span class="n">mse</span><span class="p">(</span><span class="n">y_l1</span><span class="o">-</span><span class="n">y</span><span class="p">),</span> <span class="n">mse</span><span class="p">(</span><span class="n">y_en</span><span class="o">-</span><span class="n">y</span><span class="p">)];</span>
+<span class="nb">disp</span><span class="p">(</span><span class="s1">'Mean square error: '</span><span class="p">)</span>
+<span class="nb">fprintf</span><span class="p">(</span><span class="s1">'%g    '</span><span class="p">,</span> <span class="n">MSE_y</span><span class="p">);</span> <span class="nb">fprintf</span><span class="p">(</span><span class="s1">'\n\n'</span><span class="p">);</span>
+
+<span class="c1">% Plot the recovered coefficients</span>
+<span class="nb">figure</span><span class="p">,</span> <span class="nb">hold</span> <span class="n">on</span>
+<span class="nb">plot</span><span class="p">(</span><span class="n">x_l1</span><span class="p">,</span> <span class="s1">'b'</span><span class="p">);</span>
+<span class="nb">plot</span><span class="p">(</span><span class="n">x_en</span><span class="p">,</span> <span class="s1">'r'</span><span class="p">);</span>
+<span class="nb">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="s1">'g--'</span><span class="p">);</span>
+<span class="nb">legend</span><span class="p">(</span><span class="s1">'Lasso Coef'</span><span class="p">,</span> <span class="s1">'Elastic Net coef'</span><span class="p">,</span> <span class="s1">'Original Coef'</span><span class="p">);</span></code></pre></figure>
+
+<p>Output:</p>
+
+<figure class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="n">Mean</span> <span class="n">square</span> <span class="nb">error</span><span class="p">:</span>
+<span class="mf">1.81793e-29</span>    <span class="mf">7.93494e-15</span>    <span class="mf">0.0975002</span>    <span class="mf">0.0641214</span></code></pre></figure>
+
+<p>The above code snippets generates an under-determined matrix \(A\), and
+a sparse coefficients which has 200 variables but only 10 of them are non-zeros.
+Noises are added to the responses. We then run the proposed three methods
+to try to recover the coefficients. It then generates two plots:</p>
+
+<ol>
+  <li>The first plot is as shown in the top. As we can see, OLS does a very bad job,
+though the MSE is minimized to zero.
+L2-regularization do find some of the sparks, but there are also lots of non-zeros
+introduced. Finally, L1-regularization finds most of the non-zeros correctly
+and resembles the original coefficients most.</li>
+  <li>The second plot shows how similar the recovered coefficients by lasso and
+elastic nets resemble the original coefficients. As we can see, both of them
+can recover most parts, while elastic nets contain some small ‘noise’. However,
+elastic net yields a slightly better MSE than lasso.</li>
+</ol>
+
+<p><img src="https://res.cloudinary.com/maomao/image/upload/v1491291930/blog/2014-05-14-a-comparison-of-least-square-l2-regularization-and-l1-regularization/plot.png" alt="Plot of Coefficients" /></p>
+
+<h2 id="probing-further">Probing Further</h2>
+
+<p>Scikit has some excellent examples on regualarization (<a href="http://scikit-learn.org/stable/modules/linear_model.html">1</a>, <a href="http://scikit-learn.org/stable/auto_examples/linear_model/plot_lasso_and_elasticnet.html">2</a>). Quora has an
+excellent <a href="http://www.quora.com/Machine-Learning/What-is-the-difference-between-L1-and-L2-regularization">discussion</a> on L2 vs L1 regualarization. I found the top three answers
+very useful in understanding deeper, especially from the <em>Bayesian regularization paradigm</em> perspective by thinking the regularization as MAP (Maximum A Posteriori)
+that adds a Laplacian (L1) or Gaussian (L2) prior to the original objective.</p>
+
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/least-square" class="page__taxonomy-item" rel="tag">least square</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/regularization" class="page__taxonomy-item" rel="tag">regularization</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/categories/machine-learning" class="page__taxonomy-item" rel="tag">machine learning</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2014-05-15T02:32:38+00:00">May 15, 2014</time></p>
+
+
+      </footer>
+
+      <section class="page__share">
+  
+
+  <a href="https://twitter.com/intent/tweet?via=ivanzxiao&text=A+Comparison+of+Least+Square%2C+L2-regularization+and+L1-regularization%20https%3A%2F%2Fwww.ivanxiao.com%2F2014%2F05%2F15%2Fa-comparison-of-least-square-l2-regularization-and-l1-regularization" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.ivanxiao.com%2F2014%2F05%2F15%2Fa-comparison-of-least-square-l2-regularization-and-l1-regularization" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fwww.ivanxiao.com%2F2014%2F05%2F15%2Fa-comparison-of-least-square-l2-regularization-and-l1-regularization" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/2014/05/02/debugging-applescript-print-to-a-file" class="pagination--pager" title="Debugging AppleScript: print to a file
+">Previous</a>
+    
+    
+      <a href="/2014/05/19/sparse-signal-reconstruction-via-l1-minimization" class="pagination--pager" title="Sparse Signal Reconstruction via L1-minimization
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+      <div class="page__comments">
+  
+  
+      <h4 class="page__comments-title">Comments</h4>
+      <section id="disqus_thread"></section>
+    
+</div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">You May Also Enjoy</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="https://res.cloudinary.com/maomao/image/upload/v1491291930/blog/l1/cameraman.png" alt="">
+      </div>
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/2014/05/19/sparse-image-reconstruction-via-l1-minimization" rel="permalink">Sparse Image Reconstruction via L1-minimization
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2014-05-19T20:12:36+00:00">May 19, 2014</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-fw fa-clock" aria-hidden="true"></i>
+        
+          2 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">
+  
+    
+      
+      
+      
+    
+    
+      Original
+      Minimum Energy Reconstruction
+      Sparse Reconstruction
+    
+  
+
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="https://res.cloudinary.com/maomao/image/upload/v1491291930/blog/l1/sparse_signal_reconstruction.png" alt="">
+      </div>
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/2014/05/19/sparse-signal-reconstruction-via-l1-minimization" rel="permalink">Sparse Signal Reconstruction via L1-minimization
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2014-05-19T03:13:08+00:00">May 19, 2014</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-fw fa-clock" aria-hidden="true"></i>
+        
+          2 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="/images/post_math.jpg" alt="">
+      </div>
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/2014/09/24/notes-on-maximum-likelihood" rel="permalink">Notes on Maximum Likelihood, Maximum A Posteriori and Naive Bayes
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2014-09-24T20:41:44+00:00">September 24, 2014</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-fw fa-clock" aria-hidden="true"></i>
+        
+          4 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Let \(\data\) be a set of data generated from some distribution parameterized by
+\(\theta\). We want to estimate the unknown parameter \(\theta\). What we ca...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="/images/post_goodbye.jpg" alt="">
+      </div>
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/2021/01/20/goodbye-octopress-hello-jekyll" rel="permalink">Goodbye Octopress. Hello Jekyll.
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2021-01-20T19:28:00+00:00">January 20, 2021</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-fw fa-clock" aria-hidden="true"></i>
+        
+          4 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">I have been using Octopress for blogging since 2013. Octopress is essentially a framework built on top of Jekyll, which offers vast convenient at the time, s...</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+  TeX: {
+    extensions: ["mediawiki-texvc.js"],
+    Macros: {
+      complex: ['\\mathbb{C}'],
+      norm: ['\\left\\lVert#1\\right\\rVert', 1],
+      given: ['\\mathbin{\\vert}'],
+      data: ['\\mathcal{D}'],
+      argmax: ['\\mathop{\\arg\\,\\max}\\limits'],
+    }
+  }
+  });
+</script>
+
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+<!-- end custom footer snippets -->
+
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+          <li><a href="https://twitter.com/ivanzxiao" rel="nofollow noopener noreferrer"><i class="fab fa-twitter-square" aria-hidden="true"></i> Twitter</a></li>
+        
+      
+        
+          <li><a href="https://github.com/iveney" rel="nofollow noopener noreferrer"><i class="fab fa-github-square" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+        
+          <li><a href="https://www.linkedin.com/in/ivanzxiao/" rel="nofollow noopener noreferrer"><i class="fab fa-linkedin" aria-hidden="true"></i> LinkedIn</a></li>
+        
+      
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2021 Ivan Xiao. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-0VSNB8LB2P"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-0VSNB8LB2P', { 'anonymize_ip': false});
+</script>
+
+
+
+
+
+
+    
+  <script>
+    var disqus_config = function () {
+      this.page.url = "https://www.ivanxiao.com/2014/05/15/a-comparison-of-least-square-l2-regularization-and-l1-regularization";  /* Replace PAGE_URL with your page's canonical URL variable */
+      this.page.identifier = "/2014/05/15/a-comparison-of-least-square-l2-regularization-and-l1-regularization"; /* Replace PAGE_IDENTIFIER with your page's unique identifier variable */
+    };
+    (function() { /* DON'T EDIT BELOW THIS LINE */
+      var d = document, s = d.createElement('script');
+      s.src = 'https://iveney.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+  
+
+
+
+
+
+  </body>
+</html>

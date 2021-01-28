@@ -1,0 +1,847 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.21.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Backdoor Roth IRA and Mega Backdoor Roth IRA - Ivan Xiao</title>
+<meta name="description" content="A while ago I came across “Mega Backdoor Roth IRA”, which is a good way to place fund with tax-efficiency. I read a few documents and found that even though there are lots of good materials on it in English, not quite so in Chinese. So I want to write down my notes and share the knowledge here.">
+
+
+  <meta name="author" content="Ivan Xiao">
+  
+  <meta property="article:author" content="Ivan Xiao">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="Ivan Xiao">
+<meta property="og:title" content="Backdoor Roth IRA and Mega Backdoor Roth IRA">
+<meta property="og:url" content="https://www.ivanxiao.com/2018/01/19/backdoor-roth-ira-and-mega-backdoor-roth-ira">
+
+
+  <meta property="og:description" content="A while ago I came across “Mega Backdoor Roth IRA”, which is a good way to place fund with tax-efficiency. I read a few documents and found that even though there are lots of good materials on it in English, not quite so in Chinese. So I want to write down my notes and share the knowledge here.">
+
+
+
+  <meta property="og:image" content="https://res.cloudinary.com/maomao/image/upload/c_fit,h_400/v1516349055/megabackdoor_roth.png">
+
+
+
+  <meta name="twitter:site" content="@ivanzxiao">
+  <meta name="twitter:title" content="Backdoor Roth IRA and Mega Backdoor Roth IRA">
+  <meta name="twitter:description" content="A while ago I came across “Mega Backdoor Roth IRA”, which is a good way to place fund with tax-efficiency. I read a few documents and found that even though there are lots of good materials on it in English, not quite so in Chinese. So I want to write down my notes and share the knowledge here.">
+  <meta name="twitter:url" content="https://www.ivanxiao.com/2018/01/19/backdoor-roth-ira-and-mega-backdoor-roth-ira">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+      <meta name="twitter:image" content="https://res.cloudinary.com/maomao/image/upload/c_fit,h_400/v1516349055/megabackdoor_roth.png">
+    
+  
+
+  
+    <meta name="twitter:creator" content="@ivanzxiao">
+  
+
+
+
+  <meta property="article:published_time" content="2018-01-19T07:08:40+00:00">
+
+
+
+
+
+
+<link rel="canonical" href="https://www.ivanxiao.com/2018/01/19/backdoor-roth-ira-and-mega-backdoor-roth-ira">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": null,
+      "url": "https://www.ivanxiao.com/",
+      "sameAs": ["https://twitter.com/ivanzxiao","https://www.linkedin.com/in/ivanzxiao"]
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Ivan Xiao Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use http://realfavicongenerator.net/ -->
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+          <a class="site-logo" href="/"><img src="/images/logo.png" alt=""></a>
+        
+        <a class="site-title" href="/">
+          Ivan Xiao
+          <span class="site-subtitle">Tech, Money and Enjoying Life.</span>
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/">Home</a>
+            </li><li class="masthead__menu-item">
+              <a href="/about/">About</a>
+            </li><li class="masthead__menu-item">
+              <a href="/archive/">Archive</a>
+            </li><li class="masthead__menu-item">
+              <a href="/categories/">Categories</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/">Tags</a>
+            </li><li class="masthead__menu-item">
+              <a href="/gallery/">Gallery</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="/images/ivan-memoji.jpg" alt="Ivan Xiao" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Ivan Xiao</h3>
+    
+    
+      <div class="author__bio" itemprop="description">
+        <p>Engineer. Father. Cat Lover. Guitarist. Ballroom Dancer. Woodworker.</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+
+      
+        
+          
+            <li><a href="https://github.com/iveney" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+        <li>
+          <a href="https://twitter.com/ivanzxiao" itemprop="sameAs" rel="nofollow noopener noreferrer">
+            <i class="fab fa-fw fa-twitter-square" aria-hidden="true"></i><span class="label">Twitter</span>
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Backdoor Roth IRA and Mega Backdoor Roth IRA">
+    <meta itemprop="description" content="A while ago I came across “Mega Backdoor Roth IRA”, which is a good way to place fund with tax-efficiency. I read a few documents and found that even though there are lots of good materials on it in English, not quite so in Chinese. So I want to write down my notes and share the knowledge here.">
+    <meta itemprop="datePublished" content="2018-01-19T07:08:40+00:00">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">Backdoor Roth IRA and Mega Backdoor Roth IRA
+</h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2018-01-19T07:08:40+00:00">January 19, 2018</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          1 minute read
+        
+      </span>
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right ">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On this page</h4></header>
+              <ul class="toc__menu">
+  <li><a href="#背景知识美国税务与退休金制度">背景知识：美国税务与退休金制度</a></li>
+  <li><a href="#backdoor-roth-ira">Backdoor Roth IRA</a></li>
+  <li><a href="#mega-backdoor-roth-ira">Mega Backdoor Roth IRA</a></li>
+  <li><a href="#tax-efficient-fund-placement">Tax-efficient fund placement</a></li>
+</ul>
+
+            </nav>
+          </aside>
+        
+        <p>A while ago I came across “<a href="https://thecollegeinvestor.com/17561/understanding-the-mega-backdoor-roth-ira/">Mega Backdoor Roth IRA</a>”, which is a good way to place fund with tax-efficiency. I read a few documents and found that even though there are lots of good materials on it in English, not quite so in Chinese. So I want to write down my notes and share the knowledge here.</p>
+
+<p><img src="https://res.cloudinary.com/maomao/image/upload/c_fit,h_400/v1516349055/megabackdoor_roth.png" alt="" /></p>
+
+<!-- more -->
+
+<h2 id="背景知识美国税务与退休金制度">背景知识：美国税务与退休金制度</h2>
+
+<ul>
+  <li>美国的个人所得税包括联邦税，州税，社会保险，联邦医疗保险（Medicare） 以及 联邦医疗补助（Medicaid）。而最重要的 federal tax 是累进的。</li>
+  <li>美国常见的退休金账户分为 401(k) 与 IRA，其中 401(k) 是公司提供的账户，IRA 是个人申请的账户。</li>
+  <li>401(k) 又分为 Traditional 401(k) 与 Roth 401(k)：
+    <ul>
+      <li>Traditional 401(k) 是所谓的推迟收税账户 (tax-deferred account)，即存入这个账户的钱当时不需要交税，而退休取出来的时候需要收税，但是你可以控制每个月提取的金额。可想而知，这里有两个因素决定你究竟延迟交税是省了还是亏了：1是你每个月取多少，2是未来的税阶会变成怎样。理论上来说，如果你控制每个月提取额度并且未来税是逐渐降低的，那么你则是省了税。另外，放在账户里的钱可以用来投资，但投资的收入一样需要交税。</li>
+      <li>Roth 401(k) 存入的时候需要交税，也就是说存的是税后的钱。因为交过税了，所以取出来时不需要再交。主要好处是这个账户的投资收入也是免税的！因此如果投资合理，盈利是很可观的。</li>
+    </ul>
+  </li>
+  <li>类似地，IRA 与分为 Traditional IRA 以及 Roth IRA。</li>
+  <li>每年个人存进 401(k)的资金有上限，2018年是 $18500。一般公司会匹配一定的程度，但个人与匹配加起来最高不超过一定限额，2018是 $55000。</li>
+  <li>类似地， IRA的上限是 $5500。但是，当你的收入超过一定程度，则会受到一定限制：
+    <ul>
+      <li>Traditional IRA: 当收入超过限额，则免税额递减至0。但是你仍然可以存税后的钱到这个账户——这是后文要提到的 backdoor IRA 的基础。</li>
+      <li>Roth IRA: 当收入超过限额，则可存资金递减至0。</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="backdoor-roth-ira">Backdoor Roth IRA</h2>
+
+<p>对于一般雇员来说，一个好的策略是至少存一定量的 401(k)，使得能拿到公司匹配的最大限额（相当于免费的钱）。另外，很多人其实是会存至上限 (max out) ，因为 traditional 和 roth 的优惠都好。可是对于收入很高的人来说，他们没办法免税地存钱到 IRA，也不能存到 Roth IRA，有什么办法可以做到呢？那就是所谓的 backdoor IRA。</p>
+
+<p>虽然我们没法免税存钱到 IRA，但是我们仍然可以<strong>存税后的钱到 IRA</strong>。资金到位后，我们可以把这笔钱从 traditional IRA 转到 Roth IRA 账户。这样的好处是显而易见的：本来这些税后的钱在 IRA 账户投资收入是未来要交税的，转为 Roth 后，不用交税了！由于 $5500 的上限，用这种方法最多可以 backdoor $5500 到 Roth IRA。虽然这个方法被称为 “backdoor”，但它完全是<strong>合法的</strong>。</p>
+
+<p>更细节的操作方法，请参考<a href="https://thecollegeinvestor.com/17561/understanding-the-mega-backdoor-roth-ira/">这篇文章</a>。</p>
+
+<h2 id="mega-backdoor-roth-ira">Mega Backdoor Roth IRA</h2>
+
+<p>那么我们有没办法超越 $5500 的上限？答案是肯定的！使用类似 backdoor IRA 的方法，我们可以存高至 $35000 的钱到 Roth IRA。因为这个钱几乎是 backdoor 的六倍，因此大家也叫它为 Mega backdoor Roth IRA。当然，这个方法需要有一定前提条件：公司的 401(k) 必须支持这个操作。</p>
+
+<p>具体方法跟 backdoor 很类似，我们先 max out limit，假设是 2018 的 $18500，并且公司给 match 了 $6000，那么你还能再存 $55000-$18500-$6000=$30500 的税后资金到 401(k)。这笔钱有两种转换方法：</p>
+
+<ol>
+  <li>In plan conversion，直接转换为 Roth 401(k)</li>
+  <li>Roll over to Roth IRA，如果 broker 支持的话，可以让它们把这笔 Roth 401(k) 转存到 Roth IRA。</li>
+</ol>
+
+<p>具体的限制也请参考<a href="https://thecollegeinvestor.com/17561/understanding-the-mega-backdoor-roth-ira/">文章</a>。</p>
+
+<h2 id="tax-efficient-fund-placement">Tax-efficient fund placement</h2>
+
+<p>使用以上两种办法，可以有如下的退休金储蓄计划：</p>
+
+<ol>
+  <li>Max out 401(k) （税前 $18500），或者 Max out Roth 401(k) （税后 $18500）</li>
+  <li>Max out backdoor Roth IRA - $5500</li>
+  <li>Max out Mega backdoor Roth IRA</li>
+</ol>
+
+<p>其中第一步究竟是哪种要见仁见智。但是一般的说法是，如果处于事业上升期，那么应该优先 max out Roth，因为现阶段的税阶并不是职业生涯里最高的，并且早期的投资可以有更高的复利，而这些复利最终又是免税的。</p>
+
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/notes" class="page__taxonomy-item" rel="tag">notes</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/tax" class="page__taxonomy-item" rel="tag">tax</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/categories/personal-finance" class="page__taxonomy-item" rel="tag">personal finance</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2018-01-19T07:08:40+00:00">January 19, 2018</time></p>
+
+
+      </footer>
+
+      <section class="page__share">
+  
+
+  <a href="https://twitter.com/intent/tweet?via=ivanzxiao&text=Backdoor+Roth+IRA+and+Mega+Backdoor+Roth+IRA%20https%3A%2F%2Fwww.ivanxiao.com%2F2018%2F01%2F19%2Fbackdoor-roth-ira-and-mega-backdoor-roth-ira" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.ivanxiao.com%2F2018%2F01%2F19%2Fbackdoor-roth-ira-and-mega-backdoor-roth-ira" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fwww.ivanxiao.com%2F2018%2F01%2F19%2Fbackdoor-roth-ira-and-mega-backdoor-roth-ira" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/2017/11/26/states-and-countries-ive-visited" class="pagination--pager" title="States and Countries I’ve Visited
+">Previous</a>
+    
+    
+      <a href="/2018/01/21/write-blog-post-with-dropbox-paper" class="pagination--pager" title="Write Blog Post with Dropbox Paper
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+      <div class="page__comments">
+  
+  
+      <h4 class="page__comments-title">Comments</h4>
+      <section id="disqus_thread"></section>
+    
+</div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">You May Also Enjoy</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="/images/post_white_coat_investor.jpg" alt="">
+      </div>
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/2021/01/12/the-white-coat-investor-du-shu-bi-ji" rel="permalink">The White Coat Investor 读书笔记
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2021-01-12T19:31:54+00:00">January 12, 2021</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-fw fa-clock" aria-hidden="true"></i>
+        
+          2 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description"> 最近开始阅读 The White Coat Investor。 之前在网上搜投资理财时已经知道这个作者，并且大致看过他的网站，印象不错。最近准备在 Books 上看一些书，刚好给我推荐了这本。总的来说，这本书算是一本投资理财的入门书，里面提到的东西基本上我都零散地学习过。如今能系统地学习，索性写下一些笔记来加深...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="/images/post_bills.jpg" alt="">
+      </div>
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/2017/04/30/making-an-comprehensive-insurance-claim-after-got-hit-by-road-debris-flying-object" rel="permalink">Making an auto insurance claim after got hit by road debris (flying object)
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2017-04-30T20:30:04+00:00">April 30, 2017</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-fw fa-clock" aria-hidden="true"></i>
+        
+          2 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Just a normal day of going to work. Bang! I got hit by a flying object … :(
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="/images/post_math.jpg" alt="">
+      </div>
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/2014/09/24/notes-on-maximum-likelihood" rel="permalink">Notes on Maximum Likelihood, Maximum A Posteriori and Naive Bayes
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2014-09-24T20:41:44+00:00">September 24, 2014</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-fw fa-clock" aria-hidden="true"></i>
+        
+          4 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Let \(\data\) be a set of data generated from some distribution parameterized by
+\(\theta\). We want to estimate the unknown parameter \(\theta\). What we ca...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="/images/teaser.jpg" alt="">
+      </div>
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/2013/12/05/fix-ugly-safari-7-dot-0-not-using-local-pac-file" rel="permalink">Fix (ugly) Safari 7.0 not using local pac file
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2013-12-05T08:03:43+00:00">December 5, 2013</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-fw fa-clock" aria-hidden="true"></i>
+        
+          less than 1 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">I found that Safari in Mavericks is not using local proxy.pac at all.
+Turns out because of sandboxing, it will not allow reading file from local.
+A tradition...</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+  TeX: {
+    extensions: ["mediawiki-texvc.js"],
+    Macros: {
+      complex: ['\\mathbb{C}'],
+      norm: ['\\left\\lVert#1\\right\\rVert', 1],
+      given: ['\\mathbin{\\vert}'],
+      data: ['\\mathcal{D}'],
+      argmax: ['\\mathop{\\arg\\,\\max}\\limits'],
+    }
+  }
+  });
+</script>
+
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+<!-- end custom footer snippets -->
+
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+          <li><a href="https://twitter.com/ivanzxiao" rel="nofollow noopener noreferrer"><i class="fab fa-twitter-square" aria-hidden="true"></i> Twitter</a></li>
+        
+      
+        
+          <li><a href="https://github.com/iveney" rel="nofollow noopener noreferrer"><i class="fab fa-github-square" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+        
+          <li><a href="https://www.linkedin.com/in/ivanzxiao/" rel="nofollow noopener noreferrer"><i class="fab fa-linkedin" aria-hidden="true"></i> LinkedIn</a></li>
+        
+      
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2021 Ivan Xiao. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-0VSNB8LB2P"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-0VSNB8LB2P', { 'anonymize_ip': false});
+</script>
+
+
+
+
+
+
+    
+  <script>
+    var disqus_config = function () {
+      this.page.url = "https://www.ivanxiao.com/2018/01/19/backdoor-roth-ira-and-mega-backdoor-roth-ira";  /* Replace PAGE_URL with your page's canonical URL variable */
+      this.page.identifier = "/2018/01/19/backdoor-roth-ira-and-mega-backdoor-roth-ira"; /* Replace PAGE_IDENTIFIER with your page's unique identifier variable */
+    };
+    (function() { /* DON'T EDIT BELOW THIS LINE */
+      var d = document, s = d.createElement('script');
+      s.src = 'https://iveney.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+  
+
+
+
+
+
+  </body>
+</html>

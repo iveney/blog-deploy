@@ -1,0 +1,955 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.21.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Notes on Maximum Likelihood, Maximum A Posteriori and Naive Bayes - Ivan Xiao</title>
+<meta name="description" content="Let \(\data\) be a set of data generated from some distribution parameterized by \(\theta\). We want to estimate the unknown parameter \(\theta\). What we can do?">
+
+
+  <meta name="author" content="Ivan Xiao">
+  
+  <meta property="article:author" content="Ivan Xiao">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="Ivan Xiao">
+<meta property="og:title" content="Notes on Maximum Likelihood, Maximum A Posteriori and Naive Bayes">
+<meta property="og:url" content="https://www.ivanxiao.com/2014/09/24/notes-on-maximum-likelihood">
+
+
+  <meta property="og:description" content="Let \(\data\) be a set of data generated from some distribution parameterized by \(\theta\). We want to estimate the unknown parameter \(\theta\). What we can do?">
+
+
+
+  <meta property="og:image" content="https://www.ivanxiao.com/images/post_math.jpg">
+
+
+
+  <meta name="twitter:site" content="@ivanzxiao">
+  <meta name="twitter:title" content="Notes on Maximum Likelihood, Maximum A Posteriori and Naive Bayes">
+  <meta name="twitter:description" content="Let \(\data\) be a set of data generated from some distribution parameterized by \(\theta\). We want to estimate the unknown parameter \(\theta\). What we can do?">
+  <meta name="twitter:url" content="https://www.ivanxiao.com/2014/09/24/notes-on-maximum-likelihood">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+      <meta name="twitter:image" content="https://www.ivanxiao.com/images/post_math.jpg">
+    
+  
+
+  
+    <meta name="twitter:creator" content="@ivanzxiao">
+  
+
+
+
+  <meta property="article:published_time" content="2014-09-24T20:41:44+00:00">
+
+
+
+
+
+
+<link rel="canonical" href="https://www.ivanxiao.com/2014/09/24/notes-on-maximum-likelihood">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": null,
+      "url": "https://www.ivanxiao.com/",
+      "sameAs": ["https://twitter.com/ivanzxiao","https://www.linkedin.com/in/ivanzxiao"]
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Ivan Xiao Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use http://realfavicongenerator.net/ -->
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+          <a class="site-logo" href="/"><img src="/images/logo.png" alt=""></a>
+        
+        <a class="site-title" href="/">
+          Ivan Xiao
+          <span class="site-subtitle">Tech, Money and Enjoying Life.</span>
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/">Home</a>
+            </li><li class="masthead__menu-item">
+              <a href="/about/">About</a>
+            </li><li class="masthead__menu-item">
+              <a href="/archive/">Archive</a>
+            </li><li class="masthead__menu-item">
+              <a href="/categories/">Categories</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/">Tags</a>
+            </li><li class="masthead__menu-item">
+              <a href="/gallery/">Gallery</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="/images/ivan-memoji.jpg" alt="Ivan Xiao" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Ivan Xiao</h3>
+    
+    
+      <div class="author__bio" itemprop="description">
+        <p>Engineer. Father. Cat Lover. Guitarist. Ballroom Dancer. Woodworker.</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+
+      
+        
+          
+            <li><a href="https://github.com/iveney" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+        <li>
+          <a href="https://twitter.com/ivanzxiao" itemprop="sameAs" rel="nofollow noopener noreferrer">
+            <i class="fab fa-fw fa-twitter-square" aria-hidden="true"></i><span class="label">Twitter</span>
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Notes on Maximum Likelihood, Maximum A Posteriori and Naive Bayes">
+    <meta itemprop="description" content="Let \(\data\) be a set of data generated from some distribution parameterized by\(\theta\). We want to estimate the unknown parameter \(\theta\). What we can do?">
+    <meta itemprop="datePublished" content="2014-09-24T20:41:44+00:00">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">Notes on Maximum Likelihood, Maximum A Posteriori and Naive Bayes
+</h1>
+          
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2014-09-24T20:41:44+00:00">September 24, 2014</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          4 minute read
+        
+      </span>
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right ">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On this page</h4></header>
+              <ul class="toc__menu">
+  <li><a href="#maximum-likelihood-estimation-mle">Maximum Likelihood Estimation (MLE)</a></li>
+  <li><a href="#maximum-a-posteriori-map">Maximum A Posteriori (MAP)</a></li>
+  <li><a href="#naive-bayes-classifier">Naive Bayes Classifier</a></li>
+  <li><a href="#conclusion">Conclusion</a></li>
+  <li><a href="#thoughts">Thoughts</a></li>
+</ul>
+
+            </nav>
+          </aside>
+        
+        <p>Let \(\data\) be a set of data generated from some distribution parameterized by
+\(\theta\). We want to <em>estimate</em> the unknown parameter \(\theta\). What we can do?</p>
+
+<!-- more -->
+
+<p>Essentially, we want to find a most likely value of \(\theta\) given \(\data\),
+that is \(\arg \max P(\theta | \data)\). According to Bayes Rule, we have</p>
+
+\[P(\theta \given \data) = \frac{P(\data \given \theta)P(\theta)}{P(\data)}\]
+
+<p>and the terms have the following meanings:</p>
+
+<ul>
+  <li>\(P(\theta \given \data)\): Posterior</li>
+  <li>\(P(\data \given \theta)\): Likelihood</li>
+  <li>\(P(\theta)\): Prior</li>
+  <li>\(P(\data)\): Evidence</li>
+</ul>
+
+<h2 id="maximum-likelihood-estimation-mle">Maximum Likelihood Estimation (MLE)</h2>
+
+<p>An easy way out is to use the MLE method.
+We want to find a \(\theta\) the <em>best explains</em> the data.
+That is, we maximize \(P(\data \given \theta)\).
+Denote such a value as \(\hat{\theta}_{ML}\). We have</p>
+
+\[\hat{\theta}_{ML} = \argmax_\theta P(\data \given \theta) =
+\argmax_\theta P(\mathbf{x}_1, \ldots, \mathbf{x}_N \given \theta )\]
+
+<p>Note that the above \(P\) is a joint distribution over the data.
+We usually assume the observations are <em>independent</em>. Thus, we have</p>
+
+\[P(\mathbf{x}_1, \ldots, \mathbf{x}_N \given \theta ) =
+\prod_{i=1}^{N} P(\mathbf{x}_i \given \theta )\]
+
+<p>We usually use logarithm to simplify the computation, as
+logarithm is monotonically increasing. Thus, we write:</p>
+
+\[\mathcal{L}(\data \given \theta) = \sum_{i=1}^N \log P(\mathbf{x}_i \given \theta )\]
+
+<p>Finally, we seek for the ML solution:</p>
+
+\[\hat{\theta}_{ML} = \argmax_\theta \mathcal{L}(\data \given \theta)\]
+
+<p>If we know the distribution \(P\), we can usually solve the above by
+setting derivative of \(\theta\) to 0 and solve for \(\theta\), that is,</p>
+
+\[\frac{\partial L}{\partial \theta} = 0\]
+
+<h2 id="maximum-a-posteriori-map">Maximum A Posteriori (MAP)</h2>
+
+<p>In MAP, we maximize \(P(\theta \given \data)\) directly. Denote the MAP hypothesis
+as \(\hat{\theta}_{MAP}\), we have:</p>
+
+\[\begin{array}{rl}
+\hat{\theta}_{MAP} = &amp; \argmax_\theta P(\theta \given \data) \\\\
+ = &amp; \argmax_\theta \frac{P(\data \given \theta)P(\theta)}{P(\data)} \\\\
+ = &amp; \argmax_\theta P(\data \given \theta)P(\theta)
+\end{array}\]
+
+<p>Note that the last step is due to the evidence (data) \(\data\) is constant, and
+thus can be omitted in \(\argmax\).</p>
+
+<p>At this step, we notice that the only difference between \(\hat{\theta}_{ML}\) and
+\(\hat{\theta}_{MAP}\) is the prior term \(P(\theta)\). Another way to interpret
+is that we consider \(MAP\) is more general than \(MLE\), as if we assume all
+the possible \(\theta\) are equally probable a priori, e.g., they have the same
+prior probability, or <em>uniform prior</em>, we can effectively remove \(P(\theta)\)
+from the MAP formula, and it looks like exactly the same as MLE.</p>
+
+<p>Finally, if the independent observation holds, again we can use logarithm and
+expand \(\hat{\theta}_{MAP}\) as:</p>
+
+\[\begin{array}{rl}
+\hat{\theta}_{MAP} = &amp; \argmax_\theta L(\data \given \theta) \\\\
+ = &amp; \argmax_\theta \sum_{i=1}^{N} \log P(\mathbf{x}_i \given \theta ) + \log P(\theta)
+\end{array}\]
+
+<p>The extra prior term has the effect that we are essentially ‘pulling’ the
+\(\theta\) distribution towards prior value. This makes sense as we are
+putting our domain knowledge as <em>prior</em> and intuitively the estimation is
+biased towards the <em>prior</em> value.</p>
+
+<h2 id="naive-bayes-classifier">Naive Bayes Classifier</h2>
+
+<p>Assume that we are given a set of data \(\data\), where each example
+\(\mathbf{x_j}=(a_1, a_2, \ldots, a_n)\),  which can be viewed as <em>conjunctions of
+attributes values</em>. \(v_j \in V\) is the corresponding class value. Using MAP, we
+can classify an example \(\mathbf{x}\) as:</p>
+
+\[v_{MAP}=\argmax_{v_j\in V} P(v_j \given a_1, \ldots, a_n)\]
+
+<p>The problem is that it is hard to find a joint distribution for  $P(\mathbf{x}
+\given \theta)$. If we use the data to estimate the distribution, we typically
+don’t have enough data for each attribute. In other words, the  data we have is
+very sparse compared to the whole distribution space.</p>
+
+<p>Naive bayes makes the assumption that each
+attribute is <em>conditionally independent</em> given the target class \(v_j\), that is,</p>
+
+\[P(a_1, \ldots, a_n \given v_j) = \prod_{i=1}^n P(a_i \given v_j)\]
+
+<p>which can be easily estimated from the data.
+Thus, we have the following naive bayes classifier:</p>
+
+\[v_{NB} = \argmax_{v_j \in V} P(v_j) \prod_{i=1}^n P(a_i \given v_j)\]
+
+<p>Note that the learning of naive bayes simply involves in estimating
+\(P(a_i \given v_j)\) and \(P(v_j)\) based on the frequencies in the training data.</p>
+
+<p>Normally the conditional independence assumption does not hold, but naive bayes
+performs well even if so.
+More importantly, <strong>when conditional independence is satisfied, Naive Bayes corresponds to MAP classification.</strong></p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>MLE, MAP and Naive Bayes are all connected. While MLE and MAP are parameter
+estimation methods that returns a single value of the paramter being estimated,
+NB is a classifier that predicts the probability of the class that an example
+belongs to. We also have the following insightes:</p>
+
+<ul>
+  <li>Given the data, MLE considers the paramter to be a constant and estimates
+a value that provide maximum support for the data.</li>
+  <li>MLE does not allow us to ‘inject’ our beliefs about the likely values for the parameter (prior) in the estimation process.</li>
+  <li>MAP allows the fact that the paramter can take values from a prior
+(non-uniform) distribution that express our prior beliefs regarding the paramters.</li>
+  <li>MAP returns paramter value where the probability is highest given data.</li>
+  <li>Again, both MLE and MAP returns a single and specific value for the paramter.
+By contrast, <em>bayesian estimation</em> computes the full posterior distribution
+\(P(\theta \given \data)\).</li>
+</ul>
+
+<h2 id="thoughts">Thoughts</h2>
+
+<p>After reading this <a href="http://www.behind-the-enemy-lines.com/2008/01/are-you-bayesian-or-frequentist-or.html">article</a>, I have the following interpretation:</p>
+
+<ul>
+  <li>The Maximum Likelihood approach can be roughly regarded as traditional “frequentist” thinking.</li>
+  <li>The MAP approach is a direct applicatin of Bayes Theorem. Thus, it can be regarded as a “bayesian” way of thinking.</li>
+</ul>
+
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/map" class="page__taxonomy-item" rel="tag">MAP</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/math" class="page__taxonomy-item" rel="tag">math</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/maximum-likelihood" class="page__taxonomy-item" rel="tag">maximum likelihood</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/naive-bayes" class="page__taxonomy-item" rel="tag">naive bayes</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/probability" class="page__taxonomy-item" rel="tag">probability</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/categories/machine-learning" class="page__taxonomy-item" rel="tag">machine learning</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2014-09-24T20:41:44+00:00">September 24, 2014</time></p>
+
+
+      </footer>
+
+      <section class="page__share">
+  
+
+  <a href="https://twitter.com/intent/tweet?via=ivanzxiao&text=Notes+on+Maximum+Likelihood%2C+Maximum+A+Posteriori+and+Naive+Bayes%20https%3A%2F%2Fwww.ivanxiao.com%2F2014%2F09%2F24%2Fnotes-on-maximum-likelihood" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.ivanxiao.com%2F2014%2F09%2F24%2Fnotes-on-maximum-likelihood" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fwww.ivanxiao.com%2F2014%2F09%2F24%2Fnotes-on-maximum-likelihood" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/2014/05/29/fix-mid-2009-mbp-ram-not-recognized-issue" class="pagination--pager" title="Fix Mid 2009 MBP RAM not recognized issue
+">Previous</a>
+    
+    
+      <a href="/2014/10/02/jing-ying-zhu-yi-yu-tou-piao-kao-shi" class="pagination--pager" title="精英主义与投票考试
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+      <div class="page__comments">
+  
+  
+      <h4 class="page__comments-title">Comments</h4>
+      <section id="disqus_thread"></section>
+    
+</div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">You May Also Enjoy</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="https://res.cloudinary.com/maomao/image/upload/v1491291930/blog/l1/cameraman.png" alt="">
+      </div>
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/2014/05/19/sparse-image-reconstruction-via-l1-minimization" rel="permalink">Sparse Image Reconstruction via L1-minimization
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2014-05-19T20:12:36+00:00">May 19, 2014</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-fw fa-clock" aria-hidden="true"></i>
+        
+          5 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">
+  
+    
+      
+      
+      
+    
+    
+      Original
+      Minimum Energy Reconstruction
+      Sparse Reconstruction
+    
+  
+
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="https://res.cloudinary.com/maomao/image/upload/v1491291930/blog/2014-05-14-a-comparison-of-least-square-l2-regularization-and-l1-regularization/coef.png" alt="">
+      </div>
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/2014/05/15/a-comparison-of-least-square-l2-regularization-and-l1-regularization" rel="permalink">A Comparison of Least Square, L2-regularization and L1-regularization
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2014-05-15T02:32:38+00:00">May 15, 2014</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-fw fa-clock" aria-hidden="true"></i>
+        
+          3 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="/images/post_blogging.jpg" alt="">
+      </div>
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/2014/05/23/my-octopress-blogging-flow" rel="permalink">My Octopress Blogging Flow
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2014-05-23T03:38:07+00:00">May 23, 2014</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-fw fa-clock" aria-hidden="true"></i>
+        
+          4 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+      <div class="archive__item-teaser">
+        <img src="/images/post_goodbye.jpg" alt="">
+      </div>
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/2021/01/20/goodbye-octopress-hello-jekyll" rel="permalink">Goodbye Octopress. Hello Jekyll.
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+      
+      <span class="page__meta-date">
+        <i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i>
+        <time datetime="2021-01-20T19:28:00+00:00">January 20, 2021</time>
+      </span>
+    
+
+    <span class="page__meta-sep"></span>
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-fw fa-clock" aria-hidden="true"></i>
+        
+          4 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">I have been using Octopress for blogging since 2013. Octopress is essentially a framework built on top of Jekyll, which offers vast convenient at the time, s...</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+  TeX: {
+    extensions: ["mediawiki-texvc.js"],
+    Macros: {
+      complex: ['\\mathbb{C}'],
+      norm: ['\\left\\lVert#1\\right\\rVert', 1],
+      given: ['\\mathbin{\\vert}'],
+      data: ['\\mathcal{D}'],
+      argmax: ['\\mathop{\\arg\\,\\max}\\limits'],
+    }
+  }
+  });
+</script>
+
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+<!-- end custom footer snippets -->
+
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+          <li><a href="https://twitter.com/ivanzxiao" rel="nofollow noopener noreferrer"><i class="fab fa-twitter-square" aria-hidden="true"></i> Twitter</a></li>
+        
+      
+        
+          <li><a href="https://github.com/iveney" rel="nofollow noopener noreferrer"><i class="fab fa-github-square" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+        
+          <li><a href="https://www.linkedin.com/in/ivanzxiao/" rel="nofollow noopener noreferrer"><i class="fab fa-linkedin" aria-hidden="true"></i> LinkedIn</a></li>
+        
+      
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2021 Ivan Xiao. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-0VSNB8LB2P"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-0VSNB8LB2P', { 'anonymize_ip': false});
+</script>
+
+
+
+
+
+
+    
+  <script>
+    var disqus_config = function () {
+      this.page.url = "https://www.ivanxiao.com/2014/09/24/notes-on-maximum-likelihood";  /* Replace PAGE_URL with your page's canonical URL variable */
+      this.page.identifier = "/2014/09/24/notes-on-maximum-likelihood"; /* Replace PAGE_IDENTIFIER with your page's unique identifier variable */
+    };
+    (function() { /* DON'T EDIT BELOW THIS LINE */
+      var d = document, s = d.createElement('script');
+      s.src = 'https://iveney.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+  
+
+
+
+
+
+  </body>
+</html>
